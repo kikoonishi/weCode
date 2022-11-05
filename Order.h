@@ -22,7 +22,5 @@ class Order
 		void setService(Service s);
 		void setOrderName(std::string Name);
 
-		void sampleFunt();//delete later
-
 
 };
