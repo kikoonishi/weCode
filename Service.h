@@ -14,7 +14,7 @@ public:
 	std::string getName();
 	double getRate();
 	double getHours();
-	double getPrice(double rate,int time);
+	double getPrice();
 	void setName(std::string name);
 	void setRate(double cost);
 	void setHours(int time);
