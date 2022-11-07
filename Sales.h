@@ -12,6 +12,7 @@ class Sales :private Customer{
 
     public:
         Sales(); //default constructor
+        Sales(Order);//constructor
 
         //setter
         void setOrder(Order);
