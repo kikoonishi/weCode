@@ -21,10 +21,10 @@ class Address {
         void setCountry(std::string);
 
         // accessors / getters
-        std::string getStreetAddress(std::string);
-        std::string getCity(std::string);
-        std::string getState(std::string);
-        std::string getAreaCode(std::string);
-        std::string getCountry(std::string);
+        std::string getStreetAddress();
+        std::string getCity();
+        std::string getState();
+        std::string getAreaCode();
+        std::string getCountry();
         std::string toString(); // for printing an instance of Address
 };
