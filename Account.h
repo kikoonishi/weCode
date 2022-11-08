@@ -19,9 +19,10 @@ class Account {
         void setAddress2(Address);
         void setPhoneNumber(std::string);
 
-        std::string getName();
-        Address getAddress1();
-        Address getAddress2();
-        PhoneNumber getPhoneNumber();
+        std::string getName() const;
+        Address getAddress1() const;
+        Address getAddress2() const;
+        PhoneNumber getPhoneNumber() const;
+    
         std::string toString(); // for printing an instance of Account
 };
