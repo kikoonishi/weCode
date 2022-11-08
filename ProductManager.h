@@ -1,5 +1,6 @@
 //Author: weCode
 //ProductManager.h
+//Manager can add/delete/edit products/services from database
 
 #include <Product.h>
 #include <Service.h>
