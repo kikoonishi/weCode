@@ -4,11 +4,16 @@
 #include <Sales.h>
 #include <ProductManager.h>
 
-class Manager :private Sales{
-    private:
-        ProductManager productManager;//be able to delete/add/edit products/service
+class Manager :public Sales {
     public:
-        Manager(); //default constructor
-        Manager(ProductManager);
+        using Sales::Sales; //inherit constructor
+
+        //add,delete,edit product/service
+        void addProduct(Product);
+        void addService(Service);
+        void deleteProduct(Product);
+        void deleteService(Service);
+        void editProduct(Product);
+        void editService(Service);
         
 };
