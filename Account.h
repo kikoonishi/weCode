@@ -12,7 +12,7 @@ class Account {
         PhoneNumber phone;  // Account holder's PhoneNumber
     public:
         Account();      // default constructor
-        Account(std::string, std::string, std::string); // overloaded constructor
+        Account(std::string, Address, Address); // overloaded constructor
 
         void setName(std::string);  
         void setAddress1(Address);
