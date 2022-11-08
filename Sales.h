@@ -7,16 +7,13 @@
 #include <Order.h>
 
 class Sales :private Customer{
-    private:
-        Order order; //order: product, service, ordername
-
     public:
-        Sales(); //default constructor
-        Sales(Order);//constructor
+        using Customer::Customer; //inherits constructor
 
-        //setter
-        void setOrder(Order);
+        void placeOrder(std::string, std::string, int);//add order to database (ordername, product/service, quantity)
+        void deleteOrder(std::string); //deleter order by ordername
+        void modifyOrder(std::string, int); //modify by ordername and quantity
+        void modifyOrder(std::string, std::string); ////modify by ordername and productname
+        void viewOrder(std::string); //serch order by ordername
 
-        //getter
-        Order getOrder();      
 };
