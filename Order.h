@@ -21,6 +21,8 @@ class Order
 		void setProduct(Product p);
 		void setService(Service s);
 		void setOrderName(std::string Name);
+		std::string toString();
+		Order copy();
 
 
 };
