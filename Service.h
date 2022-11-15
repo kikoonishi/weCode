@@ -18,5 +18,7 @@ public:
 	void setName(std::string name);
 	void setRate(double cost);
 	void setHours(int time);
+	std::string toString();
+	Service copy();
 
 };
