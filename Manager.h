@@ -1,7 +1,7 @@
 //Author: weCode
 //Manager.h
 
-#include <Sales.h>
+#include "Sales.h"
 
 class Manager :public Sales {
     public:
