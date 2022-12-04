@@ -2,28 +2,24 @@
 //Sales.h
 
 #include <string>
+//include headers
 #include "Customer.h"
 #include "Order.h"
-#include "Database.h"//need to be fixed
+#include "Database.h"
 
 template <class T>
 class Sales :public Customer{
-    protected:
-        static Database<T> orderData;
-        Order order;//will be deleted?
-
     public:
+        Sales();
         Sales():Customer();//default constructor
-        Sales(std::string):Customer(std::string);//
+        Sales(std::string, std::string, Account):Customer(std::string, std::string, Account);//newID, type, userAccount
         
         
-        void placeOrder(std::string, std::string, int);//get product/service name, customer name, quantity as a parameter and add to database
-        void placeOrder(std::string);
-        void deleteOrder(std::string); //deleter order
-        void modifyOrder(std::string, int); //modify 
-        void modifyOrder(std::string, std::string);
-        void viewOrder(std::string); //serch order by ordername
-        void viewOrder(); //view all order in DB
-        void toString();
-        void deleteOrder(std::string);
+        void placeOrder(Database<T>, Order);
+        void deleteOrder(Database<T>, Order); //deleter order by order
+        void deleteOrder(Database<T>, std::string); //delete order by ordername
+        void deleteOrder(Database<T>, Customer); //delete order by Customer
+        void modifyOrder(Database<T>, Order, Order); //existed Order and new Order
+        void viewOrder(Database<T>); //print database
+        std::string toString(Database<T>); //get database as string
 };
