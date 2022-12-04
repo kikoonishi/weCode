@@ -7,50 +7,59 @@
 #include "Sales.h" // include definition of class Sales from Sales.h
 
 ////////TODO need to be changed based on database
-
 template <class T>
-Sales<T>::Sales(std::string cID) : Customer(this->cID){}
-
-/*
-//? or this for members in user
-Sales<T>::Sales(std::string username, std::string password, etc) : Customer(){}
-*/
-
-template <class T>
-//??create separate method for place service order and product order
-void Sales<T>::placeOrder(std::string product, std::string name, int quantity){//??product/service, customer name, quantity
-    //create order object
-    Order order(this->product);//TODO orderName and quantity too?
-    //add order to database (ordername, product/service, quantity)
-    orderData.add(this->order);
+Sales<T>::Sales() : Customer(){
+    //TODO default constructor
+    setCustomerID("0");
+    setCustomerType("Sales");
+    ++total_customers;
 }
 
 template <class T>
-void Sales<T>::placeOrder(std::string service){
-    //create order object
-    Order order(this->service);//TODO
-    //add order to database (ordername, product/service, quantity)
-    orderData.add(this->order);
-}
+Sales<T>::Sales(std::string newID, std::string type, Account userAccount) : Customer(newID, type, userAccount){}
 
 template <class T>
-void Sales<T>::deleteOrder(std::string item){
-    //delete order by ordername
+void Sales<T>::placeOrder(Database<T> database, Order order){
+    //add order to database (ordername, product/service, quantity)
+    database.add(order);
+}
+
+
+template <class T>
+void Sales<T>::deleteOrder(Database<T> database, Order order){
     //delete order from database
-    orderData.deleteElement(this->item);
+    database.deleteElement(order);
 }
 
 template <class T>
-void Sales<T>::modifyOrder(std::string ordername, int quantity){
-    //modify by ordername and quantity
-    //modify order object
+void Sales<T>::deleteOrder(Database<T> database, std::string ordername){
+    //get object from db by passing ordername (should it be index?)
+    Order order = database.get(ordername);
+    //delete order from database
+    database.deleteElement(order);
+}
+
+template <class T>
+void Sales<T>::deleteOrder(Database<T> database, Customer customer){
+    //delete order from database
+    database.deleteElement(customer);
+}
+
+template <class T>
+void Sales<T>::modifyOrder(Database<T> database, Order existingOrder, Order newOrder){
+    //replace existing order to new order
+    database.modify(existingOrder, newOrder);
     
 }
-template <class T>
-void Sales<T>::modifyOrder(std::string, std::string){
-}////modify by ordername or productname from one parameter to another
 
 template <class T>
-void Sales<T>::viewOrder(std::string){
-   //serch order by ordername
+void Sales<T>::viewOrder(Database<T> database){
+   //get database as string and print
+   std::cout << database.toString() << std::endl; 
 }
+
+template <class T>
+std::string toString(Database<T> database){
+    //get database as string and return
+    return database.toString();
+};
