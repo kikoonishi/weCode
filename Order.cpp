@@ -4,6 +4,7 @@
 #include "Service.h"
 #include "Order.h"
 #include "Customer.h"
+#inlcude "Database.h"
 
 Order::Order()
 {
@@ -75,3 +76,8 @@ Order Order:: copy()
 	Order copy = Order(product, service, orderName);
 	return copy;
 }
+
+void Order:: placeOrder(Database T)
+{
+	T.add(T);
+}	
