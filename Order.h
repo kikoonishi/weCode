@@ -4,6 +4,7 @@
 #include "Product.h"
 #include "Service.h"
 #include "Customer.h"
+#include "Database.h"
 
 class Order
 {
@@ -26,6 +27,7 @@ class Order
 		void setOrderName(std::string name);
 		std::string toString();
 		Order copy();
+		void placeOrder(Database T);
 
 
 
