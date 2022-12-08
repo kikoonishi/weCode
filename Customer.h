@@ -1,25 +1,42 @@
 // Customer.h
+#pragma once
+
 #include <iostream>
 #include <string>
-#include <User.h>
+#include "User.h"
+#include "Account.h"
+#include "Product.h"
+#include "Service.h"
+#include "Database.h"
 
-class Customer : private User {
-    private:
-        std::string customer_id;
-    public:
-        Customer(); // default constructor
-        Customer(std::string);  // overloaded constructor
+class Customer : public User {
+private:
+    static int total_customers;
+    std::string customer_id;
+    std::string customer_type;  // business, government, or residential
+    Account customer_account;
+public:
+    Customer(); // default constructor
+    Customer(std::string, std::string, Account);  // overloaded constructor
 
-        void setCustomerID(std::string);  
-        void changeStreetAddress(int, std::string);  // invokes setStreetAddress() from address1 or address2 in user_account
-        void changeCity(int, std::string);   // invokes setCity() from address1 or address2 in user_account
-        void changeState(int, std::string);  // invokes setState() from address1 or address2 in user_account
-        void changeAreaCode(int, std::string);   // invokes setAreaCode() from address1 or address2 in user_account
-        void changeCountry(int, std::string);   // invokes setCountry() from address1 or address2 in user_account
+    void setCustomerID(std::string);  
+    void setCustomerType(std::string);
+    void setCustomerAccount(Account);  // set to user_account
 
-        std::string getCustomerID();
-        void viewProducts();    // Customer can see the store's products
-        void viewPrices();  // Customer can see the prices of the store's products
+    void changeStreetAddress(int, std::string);  // invokes setStreetAddress() from address1 or address2 in user_account
+    void changeCity(int, std::string);   // invokes setCity() from address1 or address2 in user_account
+    void changeState(int, std::string);  // invokes setState() from address1 or address2 in user_account
+    void changeAreaCode(int, std::string);   // invokes setAreaCode() from address1 or address2 in user_account
+    void changeCountry(int, std::string);   // invokes setCountry() from address1 or address2 in user_account
 
-        std::string toString(); // for printing an instance of Customer
+    static int getTotalCustomers() { return total_customers; } // gets the number of Customer instances
+
+    std::string getCustomerID() const;
+    std::string getCustomerType() const;
+    Account getCustomerAccount() const; // gets customer_account
+
+    void viewProducts(Database<Product>);    // Customer can see the store's products
+    void viewServices(Database<Service>);  // Customer can see the store's services
+
+    std::string toString(); // for printing an instance of Customer
 };
