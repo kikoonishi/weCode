@@ -53,6 +53,11 @@ void Service:: setHours(int time)
 	hours = time;
 }
 
+void Service:: setType(std::string t)
+{
+	type = t;
+}
+
 std::string Service:: toString()
 {
 	std::string output = serviceName + "/n" + "$" + std::to_string(hourlyRate) + " per hour";
