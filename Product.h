@@ -16,6 +16,7 @@ class Product
 		double getPrice();
 		void setName(std::string name);
 		void setPrice(double cost);
+		void setType(std::string type);
 		std::string toString();
 		Product copy();
 };
