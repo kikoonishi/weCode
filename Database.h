@@ -1,32 +1,43 @@
-//Author weCode
-//Database.h
+// Author: weCode
+// Database.h
+#pragma once
 
-#define DATABASE_H
+#include <iostream>
+#include <string>
+#include <fstream>
+
+#include "User.h"
+#include "Order.h"
+#include "Product.h"
+#include "Service.h"
+#include "Customer.h"
+#include "Sales.h"
+#include "Manager.h"
 
 template <typename T>
 class Database {
-    private:
-        T *data;
-        int arraylength;
-        int listsize;
-        void resize();//
-        bool needtoresize();
+private:
+    T* data;
+    int maxlength;
+    int size;
+    std::string filename;
+    void resize();
+    bool needtoresize();
 
-    public:
-        Database();//default constructor
-        int getSize();
-        int findElement(T);
-        T get(int);
+public:
+    Database(int = 25, std::string = "database.txt");
+    int getSize() const;
+    int findElement(T) const;
+    T get(int) const;
+    bool isEqual(T, T);
 
-        void print();
-        void add(T);
-        void insert(int, T);
-        void modify(int, T);//depending change T at certain index
-        void modify(T,T); //change T to new T
-        void deleteElement(T);
-        void deleteElement(int);
-        T getElement(std::string);
-        T getElement(int);
-        void toString();
-
+    void print();
+    void add(T);
+    void remove(T);
+    void loadFromFile(std::string); // load Database from text file
+    void loadUserDB();
+    void loadOrderDB();
+    void loadProductDB();
+    void loadServiceDB();
+    std::string toString() const;
 };
