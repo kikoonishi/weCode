@@ -14,7 +14,7 @@ Manager<T>::Manager() : Sales(){
 }
 
 template <class T>
-Manager<T>::Manager(std::string newID, std::string type, Account userAccount): Sales(newID, type, userAccount){}      //call parent class constructor 
+Manager<T>::Sales<T>(std::string newID, std::string type, Account userAccount): Sales(newID, type, userAccount){}      //call parent class constructor 
 
 template <class T>
 //add,delete,edit product/service
