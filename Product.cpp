@@ -36,6 +36,11 @@ void Product::setPrice(double cost)
 	price = cost;
 }
 
+void Product::SetType(std::string t)
+{
+	type = t;	
+}
+
 std::string Product::toString()
 {
 	std::string output = productName + "/n" + "$" + std::to_string(price);
