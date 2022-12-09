@@ -65,6 +65,11 @@ void Order::setOrderName(std::string name)
 	orderName = name;
 }
 
+void Order::setCustomer(Customer c)
+{
+	customer = c;	
+}
+
 std::string Order:: toString()
 {
 	std::string output = orderName + "-" + product.getName(); + "-"+ service.getName();
