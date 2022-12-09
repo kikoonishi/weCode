@@ -25,7 +25,7 @@ class Order
 		void setProduct(Product p);
 		void setService(Service s);
 		void setOrderName(std::string name);
-		void setCustomer(customer);
+		void setCustomer(Customer c);
 		std::string toString();
 		Order copy();
 
