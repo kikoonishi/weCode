@@ -19,6 +19,7 @@ public:
 	void setName(std::string name);
 	void setRate(double rate);
 	void setHours(int time);
+	void setType(std::string type);
 	std::string toString();
 	Service copy();
 
