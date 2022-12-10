@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include <Address.h>
-#include <PhoneNumber.h>
+#include "Address.h"
+#include "PhoneNumber.h"
 
 class Account {
 private:
@@ -17,7 +17,7 @@ public:
     Account();      // default constructor
     Account(std::string, Address, Address); // overloaded constructor
 
-    void setName(std::string);  
+    void setName(std::string);
     void setAddress1(Address);
     void setAddress2(Address);
     void setPhoneNumber(std::string);
