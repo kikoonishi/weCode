@@ -1,4 +1,3 @@
-// Author: weCode
 // Database.h
 #pragma once
 
@@ -39,5 +38,5 @@ public:
     void loadOrderDB();
     void loadProductDB();
     void loadServiceDB();
-    std::string toString() const;
+    std::string toString();
 };
