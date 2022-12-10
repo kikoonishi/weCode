@@ -17,10 +17,11 @@ class Sales :public User{
         std::string sales_id;
     public:
         Sales();//default constructor
-        Sales(std::string, std::string, std::string);//newID, type, userAccount
+        Sales(std::string, std::string, std::string);//username, password, sales_id
         
         void setSalesID(std::string);
         std::string getSalesID() const;
+        std::string Sales::toString();
         
         template <class T>
         void placeOrder(Database<T>, Order);
