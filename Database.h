@@ -34,9 +34,9 @@ public:
     void add(T);
     void remove(T);
     void loadFromFile(std::string); // load Database from text file
-    void loadUserDB();
-    void loadOrderDB();
-    void loadProductDB();
-    void loadServiceDB();
+    void loadUserDB(std::ifstream);
+    void loadOrderDB(std::ifstream);
+    void loadProductDB(std::ifstream);
+    void loadServiceDB(std::ifstream);
     std::string toString();
 };
