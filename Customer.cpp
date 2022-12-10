@@ -26,75 +26,76 @@ std::string Customer::getCustomerID() const { return customer_id; }
 
 std::string Customer::getCustomerType() const { return customer_type; }
 
+Account Customer::getCustomerAccount() const { return customer_account; }
+
 void Customer::changeStreetAddress(int addressNum, std::string newSA) {
     if (addressNum == 1) {
         customer_account.getAddress1().setStreetAddress(newSA);
-    } 
+    }
     else if (addressNum == 2) {
         customer_account.getAddress2().setStreetAddress(newSA);
-    } 
-    else {
-        // error
+    }
+    else { // error
+        throw std::invalid_argument("address number must be 1 or 2");
     }
 }
 
 void Customer::changeCity(int addressNum, std::string newCI) {
     if (addressNum == 1) {
         customer_account.getAddress1().setCity(newCI);
-    } 
+    }
     else if (addressNum == 2) {
         customer_account.getAddress2().setCity(newCI);
-    } 
-    else {
-        // error
+    }
+    else { // error
+        throw std::invalid_argument("address number must be 1 or 2");
     }
 }
 
 void Customer::changeState(int addressNum, std::string newST) {
     if (addressNum == 1) {
         customer_account.getAddress1().setState(newST);
-    } 
+    }
     else if (addressNum == 2) {
         customer_account.getAddress2().setState(newST);
-    } 
-    else {
-        // error
+    }
+    else { // error
+        throw std::invalid_argument("address number must be 1 or 2");
     }
 }
 
 void Customer::changeAreaCode(int addressNum, std::string newAC) {
     if (addressNum == 1) {
         customer_account.getAddress1().setAreaCode(newAC);
-    } 
+    }
     else if (addressNum == 2) {
         customer_account.getAddress2().setAreaCode(newAC);
-    } 
-    else {
-        // error
+    }
+    else { // error
+        throw std::invalid_argument("address number must be 1 or 2");
     }
 }
 
 void Customer::changeCountry(int addressNum, std::string newCO) {
     if (addressNum == 1) {
         customer_account.getAddress1().setCountry(newCO);
-    } 
+    }
     else if (addressNum == 2) {
         customer_account.getAddress2().setCountry(newCO);
-    } 
-    else {
-        // error
+    }
+    else { // error
+        throw std::invalid_argument("address number must be 1 or 2");
     }
 }
 
 //  check Order.h, Product.h, Services.h files for both functions
-void Customer::viewProducts() {//Database<Products> products) {
-
+void Customer::viewProducts(Database<Product> products) {
+    products.print();   // displays each Product
 }
 
-void Customer::viewServices() {
-
+void Customer::viewServices(Database<Service> services) {
+    services.print();   // displays each Service
 }
-//
 
 std::string Customer::toString() {
     std::string toString = "";
