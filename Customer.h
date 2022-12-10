@@ -14,14 +14,12 @@ private:
     static int total_customers;
     std::string customer_id;
     std::string customer_type;  // business, government, or residential
-    Account customer_account;
 public:
     Customer(); // default constructor
-    Customer(std::string, std::string, Account);  // overloaded constructor
+    Customer(std::string, std::string, Account, std::string, std::string);  // Customer fields + User fields
 
-    void setCustomerID(std::string);  
+    void setCustomerID(std::string);
     void setCustomerType(std::string);
-    void setCustomerAccount(Account);  // set to user_account
 
     void changeStreetAddress(int, std::string);  // invokes setStreetAddress() from address1 or address2 in user_account
     void changeCity(int, std::string);   // invokes setCity() from address1 or address2 in user_account
@@ -33,7 +31,6 @@ public:
 
     std::string getCustomerID() const;
     std::string getCustomerType() const;
-    Account getCustomerAccount() const; // gets customer_account
 
     void viewProducts(Database<Product>);    // Customer can see the store's products
     void viewServices(Database<Service>);  // Customer can see the store's services
