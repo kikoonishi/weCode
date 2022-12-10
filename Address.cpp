@@ -56,7 +56,7 @@ std::string Address::getCountry() const {
 std::string Address::toString() {
     std::string toString = "";
     toString += getStreetAddress() + " ";  // e.g. 1234 Example Rd.
-    toString += getCity() + ", ";   // e.g. Naperville
+    toString += getCity() + " ";   // e.g. Naperville
     toString += getState() + " ";  // e.g. IL
     toString += getAreaCode() + " ";   // e.g. 12345
     toString += getCountry();  // e.g. United States
