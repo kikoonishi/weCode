@@ -28,6 +28,13 @@ void Sales::placeOrder(Database<T> database, Order order){
     database.add(order);
 }
 
+//return fields as string
+std::string Sales::toString() {
+    std::string toString = "";
+    toString += "Manager ID: " + sales_id;
+    return toString;
+}
+
 template <class T>
 void Sales::deleteOrder(Database<T> database, Order order){
     //delete order from database
