@@ -23,6 +23,7 @@ class Manager :public User {
 
         void setManagerID(std::string);
         std::string getManagerID();
+        std::string toString();
 
         //add,delete,edit product/service in database
         template <class T>
@@ -37,6 +38,10 @@ class Manager :public User {
         void modifyProduct(Database<T>, Product, Product);//existring Product to new Product
         template <class T>
         void modifyService(Database<T>, Service, Service);//existring Service to new Service
+        template <class T>
+        void viewProduct(Database<T>);//view database
+        template <class T>
+        void viewService(Database<T>);
 
 
         //Order
