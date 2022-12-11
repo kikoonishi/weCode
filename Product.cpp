@@ -1,5 +1,3 @@
-#include <string>
-#include <iostream>
 #include "Product.h"
 
 Product::Product()
