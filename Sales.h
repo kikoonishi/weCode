@@ -1,25 +1,38 @@
 //Author: weCode
 //Sales.h
 
+#ifndef SALES_H
+#define SALES_H
+
 #include <string>
 //include headers
-#include "Customer.h"
-#include "Order.h"
 #include "Database.h"
+#include "User.h"
+#include "Account.h"
+#include "Order.h"
 
-template <class T>
-class Sales :public Customer{
-    public:
-        Sales();
-        Sales():Customer();//default constructor
-        Sales(std::string, std::string, Account):Customer(std::string, std::string, Account);//newID, type, userAccount
-        
-        
-        void placeOrder(Database<T>, Order);
-        void deleteOrder(Database<T>, Order); //deleter order by order
-        void deleteOrder(Database<T>, std::string); //delete order by ordername
-        void deleteOrder(Database<T>, Customer); //delete order by Customer
-        void modifyOrder(Database<T>, Order, Order); //existed Order and new Order
-        void viewOrder(Database<T>); //print database
-        std::string toString(Database<T>); //get database as string
+
+class Sales :public User {
+private:
+    std::string sales_id;
+public:
+    Sales();//default constructor
+    Sales(std::string, std::string, Account, std::string);//username, password, sales_id
+
+    void setSalesID(std::string);
+    std::string getSalesID() const;
+    std::string toString();
+
+    template <class T>
+    void placeOrder(Database<T>, Order);
+    template <class T>
+    void deleteOrder(Database<T>, Order); //deleter order by order
+    template <class T>
+    void deleteOrder(Database<T>, std::string); //delete order by ordername
+    template <class T>
+    void modifyOrder(Database<T>, Order, Order); //existed Order and new Order
+    template <class T>
+    void viewOrder(Database<T>); //print database
 };
+
+#endif
