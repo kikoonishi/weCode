@@ -1,9 +1,6 @@
 //Author weCode
 //Sales.cpp
 
-
-#include <iostream>
-#include <string>
 #include "Sales.h" // include definition of class Sales from Sales.h
 
 
