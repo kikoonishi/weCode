@@ -28,5 +28,5 @@ public:
 	void setOrderName(std::string name);
 	void setCustomer(Customer c);
 	std::string toString();
-	Order copy();
+	void copy(Order);
 };
