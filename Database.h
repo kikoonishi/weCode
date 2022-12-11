@@ -25,18 +25,21 @@ private:
 
 public:
     Database(int = 25, std::string = "database.txt");
+    ~Database();
     int getSize() const;
     int findElement(T) const;
     T get(int) const;
     bool isEqual(T, T);
 
     void print();
-    void add(T);
+    void addToData(T);  // adds a new element to the list; only for loading from files
+    void add(T);    // adds a new element to the list and file
     void remove(T);
+
     void loadFromFile(std::string); // load Database from text file
-    void loadUserDB(std::ifstream);
-    void loadOrderDB(std::ifstream);
-    void loadProductDB(std::ifstream);
-    void loadServiceDB(std::ifstream);
+    void loadUserDB(std::ifstream);     // loads Database<User>
+    void loadOrderDB(std::ifstream);    // loads Database<Order>
+    void loadProductDB(std::ifstream);  // loads Database<Product>
+    void loadServiceDB(std::ifstream);  // loads Database<Service>
     std::string toString();
 };
