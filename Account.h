@@ -15,7 +15,7 @@ private:
     PhoneNumber phone;  // Account holder's PhoneNumber
 public:
     Account();      // default constructor
-    Account(std::string, Address, Address); // overloaded constructor
+    Account(std::string, Address, Address, PhoneNumber); // overloaded constructor
 
     void setName(std::string);
     void setAddress1(Address);
@@ -30,4 +30,5 @@ public:
     PhoneNumber getPhoneNumber() const;
 
     std::string toString(); // for printing an instance of Account
+    void copy(Account);
 };
