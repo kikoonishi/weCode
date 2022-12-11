@@ -30,73 +30,62 @@ std::string Manager::toString() {
 
 
 //Product/Service
-template <class T>
 //add,delete,edit product/service
-void Manager::addProduct(Database<T> productData, Product product) {
+void Manager::addProduct(Database<Product> productData, Product product) {
     //add product to database
     productData.add(product);
 }
 
-template <class T>
-void Manager::addService(Database<T> serviceData, Service service) {
+void Manager::addService(Database<Service> serviceData, Service service) {
     //add service to database
     serviceData.add(service);
 }
 
-template <class T>
-void Manager::deleteProduct(Database<T> productData, Product product) {
+void Manager::deleteProduct(Database<Product> productData, Product product) {
     //delete product from daatabase
-    productData.remove(this->product);
+    productData.remove(product);
 }
 
-template <class T>
-void Manager::deleteService(Database<T> serviceData, Service service) {
-    serviceData.deleteElement(this->service);
+void Manager::deleteService(Database<Service> serviceData, Service service) {
+    serviceData.remove(service);
 }
 
-template <class T>
-void Manager::modifyProduct(Database<T> productData, Product product, Product newProduct) {
+void Manager::modifyProduct(Database<Product> productData, Product product, Product newProduct) {
     //remove
     productData.remove(product);
     //add product in database
     productData.add(newProduct);
 }
 
-template <class T>
-void Manager::modifyService(Database<T> serviceData, Service service, Service newService) {
+void Manager::modifyService(Database<Service> serviceData, Service service, Service newService) {
     //remove
-    serviceData.remove(product);
+    serviceData.remove(service);
     //add product in database
-    serviceData.add(newProduct);
+    serviceData.add(newService);
 }
 
-template <class T>
-void Manager::viewProduct(Database<T> productData) {
+void Manager::viewProduct(Database<Product> productData) {
     //get database as string and print
     productData.print();
 }
 
-template <class T>
-void Manager::viewService(Database<T> serviceData) {
+void Manager::viewService(Database<Service> serviceData) {
     //get database as string and print
     serviceData.print();
 }
 
 //Order
-template <class T>
-void Manager::placeOrder(Database<T> orderData, Order order) {
+void Manager::placeOrder(Database<Order> orderData, Order order) {
     //add order to database (ordername, product/service, quantity)
     orderData.add(order);
 }
 
-template <class T>
-void Manager::deleteOrder(Database<T> orderData, Order order) {
+void Manager::deleteOrder(Database<Order> orderData, Order order) {
     //delete order from database
     orderData.remove(order);
 }
 
-template <class T>
-void Manager::modifyOrder(Database<T> orderData, Order existingOrder, Order newOrder) {
+void Manager::modifyOrder(Database<Order> orderData, Order existingOrder, Order newOrder) {
     //delete existing order
     orderData.remove(existingOrder);
     //add new order
@@ -104,8 +93,7 @@ void Manager::modifyOrder(Database<T> orderData, Order existingOrder, Order newO
 
 }
 
-template <class T>
-void Manager::viewOrder(Database<T> orderData) {
+void Manager::viewOrder(Database<Order> orderData) {
     //get database as string and print
     orderData.print();
 }
