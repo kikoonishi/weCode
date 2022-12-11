@@ -4,13 +4,11 @@
 Customer::Customer() : User() {
     setCustomerID("c0");
     setCustomerType("Residential");
-    ++total_customers;
 }
 
 Customer::Customer(std::string username, std::string password, Account user_account, std::string newID, std::string type) : User(username, password, user_account) {
     setCustomerID(newID);
     setCustomerType(type);
-    ++total_customers;
 }
 
 void Customer::setCustomerID(std::string id) { customer_id = id; }
@@ -81,15 +79,6 @@ void Customer::changeCountry(int addressNum, std::string newCO) {
     }
 }
 
-//  check Order.h, Product.h, Services.h files for both functions
-void Customer::viewProducts(Database<Product> products) {
-    products.print();   // displays each Product
-}
-
-void Customer::viewServices(Database<Service> services) {
-    services.print();   // displays each Service
-}
-
 std::string Customer::toString() {
     std::string toString = "";
     toString += getAccount().toString() + "\n";
@@ -98,7 +87,7 @@ std::string Customer::toString() {
     return toString;
 }
 
-void Customer::copy(Customer toCopy) { 
+void Customer::copy(Customer toCopy) {
     this->customer_id = toCopy.getCustomerID();
     this->customer_type = toCopy.getCustomerType();
     this->setUsername(toCopy.getUsername());
