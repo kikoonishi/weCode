@@ -705,5 +705,24 @@ int main()
     {
         managerMenu(manager, orders, products, services, customers, sales, managers);
     }
+    else {
+        string choice;
+        cout << "Unable to login. Which login do you want to create? (customer, sales, manager): " << endl;
+        cin >> choice;
+
+        if (choice == "customer") {
+            customerMenu(customer, products, services);
+        }
+        else if (choice == "sales") {
+            salesMenu(salesperson, orders, products, services, customers, sales, managers);
+        }
+        else if (choice == "manager") {
+            managerMenu(manager, orders, products, services, customers, sales, managers);
+        }
+        else {
+            cout << "Invalid choice. Leaving the system.\n" << endl;
+        }
+        
+    }
 
 }
