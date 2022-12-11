@@ -1,17 +1,23 @@
-// weCodeProject.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// source.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
 #include <string>
-#include "Manager.h"
-#include "Sales.h"
+#include "Account.h"
+#include "Address.h"
 #include "Customer.h"
-#include "Order.h"
-#include "User.h"
 #include "Database.h"
+#include "Manager.h"
+#include "Order.h"
+#include "PhoneNumber.h"
+#include "Product.h"
+#include "Sales.h"
+#include "Service.h"
+#include "User.h"
+
 using namespace std;
 
-static void shopMenu(Database<Product> products, Database<Service> services)
+void shopMenu(Database<Product> products, Database<Service> services)
 {
     cout << "Welcome to the shop! Select one of the following options to browse products and services" << endl;
     cout << "--------------------------------------------" << endl;
@@ -80,7 +86,7 @@ static void shopMenu(Database<Product> products, Database<Service> services)
     }
 }
 
-static void changeInfo(Customer customer)
+void changeInfo(Customer customer)
 {
     cout << "Select one of the following to edit:" << endl;
     cout << "--------------------------------------------" << endl;
@@ -139,7 +145,7 @@ static void changeInfo(Customer customer)
 
 }
 
-static void customerMenu(Customer customer, Database<Product> products, Database<Service> services)
+void customerMenu(Customer customer, Database<Product> products, Database<Service> services)
 {
     while (true) {
         cout << "Welcome! Select one of the following options" << endl;
@@ -174,7 +180,7 @@ static void customerMenu(Customer customer, Database<Product> products, Database
 
 }
 
-static void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product> products, 
+void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product> products, 
     Database<Service> services, Database<Customer> customers, Database<Sales> sales, Database<Manager> managers)
 {
     while (true)
@@ -336,7 +342,7 @@ static void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<
     }
 }
 
-static void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product> products, 
+void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product> products, 
     Database<Service> services, Database<Customer> customers, Database<Sales> sales, Database<Manager> managers)
 {
 
@@ -687,9 +693,10 @@ int main()
     string username;
     string password;
 
-    Customer customer;
-    Sales salesperson;
-    Manager manager;
+    // this may be where the syntax error: identifier is coming from
+    Customer customer = Customer();
+    Sales salesperson = Sales();
+    Manager manager = Manager();
 
     cout << "LOGIN" << endl;
     cout << "Enter USERNAME:" << endl;
