@@ -2,7 +2,7 @@
 #include "Address.h"
 
 Address::Address() {
-    setStreetAddress("0");
+    setStreetAddress("0 a b");
     setCity("0");
     setState("0");
     setAreaCode("0");
@@ -61,4 +61,12 @@ std::string Address::toString() {
     toString += getAreaCode() + " ";   // e.g. 12345
     toString += getCountry();  // e.g. United States
     return toString;
+}
+
+void Address::copy(Address toCopy) {
+    this->streetAddress = toCopy.getStreetAddress();
+    this->city = toCopy.getCity();
+    this->state = toCopy.getState();
+    this->areaCode = toCopy.getAreaCode();
+    this->country = toCopy.getCountry();
 }
