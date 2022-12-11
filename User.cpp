@@ -4,14 +4,12 @@
 User::User() {
     setUsername("username");
     setPassword("password");
-    ++total_users;
 }
 
 User::User(std::string newUsername, std::string newPassword, Account newAccount) {
     setUsername(newUsername);
     setPassword(newPassword);
     setAccount(newAccount);
-    ++total_users;
 }
 
 void User::setUsername(std::string newUsername) {
