@@ -3,7 +3,6 @@
 
 Account::Account() {
     setName("Nobody");
-    ++total_accounts;
 }
 
 Account::Account(std::string newName, Address newAddress1, Address newAddress2, PhoneNumber newPhone) {
@@ -11,7 +10,6 @@ Account::Account(std::string newName, Address newAddress1, Address newAddress2, 
     setAddress1(newAddress1);
     setAddress2(newAddress2);
     setPhoneNumber(newPhone.getPhoneNumber());
-    ++total_accounts;
 }
 
 void Account::setName(std::string newName) {
