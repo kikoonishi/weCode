@@ -4,11 +4,10 @@
 #include "User.h"
 #include "Product.h"
 #include "Service.h"
-#include "Database.h"
+//#include "Database.h"
 
 class Customer : public User {
 private:
-    static int total_customers;
     std::string customer_id;
     std::string customer_type;  // business, government, or residential
 public:
@@ -24,14 +23,9 @@ public:
     void changeAreaCode(int, std::string);   // invokes setAreaCode() from address1 or address2 in user_account
     void changeCountry(int, std::string);   // invokes setCountry() from address1 or address2 in user_account
 
-    static int getTotalCustomers() { return total_customers; } // gets the number of Customer instances
-
     std::string getCustomerID() const;
     std::string getCustomerType() const;
 
-    void viewProducts(Database<Product>);    // Customer can see the store's products
-    void viewServices(Database<Service>);  // Customer can see the store's services
-
     std::string toString(); // for printing an instance of Customer
-    void copy(Customer);   
+    void copy(Customer);
 };
