@@ -1,6 +1,5 @@
 // Customer.cpp
 #include "Customer.h"
-#include "Database.h"
 
 Customer::Customer() : User() {
     setCustomerID("c0");
