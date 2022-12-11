@@ -11,7 +11,7 @@ Database<T>::Database(int newSize, std::string fname) {
 
 template <class T>
 Database<T>::~Database() {
-    delete[] data;  // deletes the contents of the database
+    delete[] *data;  // deletes the contents of the database
 }
 
 template <class T>
@@ -57,8 +57,11 @@ int Database<T>::findElement(T element) const {
 
 template <class T>
 T Database<T>::get(int index) const {
-    if (index < size) {   // valid index
+    if (index < size && index >= 0) {   // valid index
         return data[index];
+    }
+    else {
+        throw std::invalid_argument("cannot pass a negative index");
     }
 }
 
@@ -225,34 +228,71 @@ void Database<T>::add(T newElement) {
 }
 
 template <class T>
-void Database<T>::remove(T element) {   // get this working if time allows; low priority requirement
+bool Database<T>::remove(T element) {       // not complete yet
     // remove the element from the list
     for (int i = 0; i < getSize(); i++) {
-        if (isEqual(data[i], element)) {
-            data[i] = nullptr;
+        if (isEqual(data[i], element)) {    // the element was found
+            data.std::remove(0, getSize() - 1, data[i]);    // removes data[i]
             size--;
+            return true;
         }
     }
+
+    // copy contents of data into a temp array
+    T* temp = new T[getSize() - 1];
+
     // rewrite the Database file
-    //std::ofstream dbfile(filename);
-    //dbfile.close();
+    std::ofstream dbfile;
+    dbfile.open(filename);
+
+    dbfile.close();
 }
 
 template <class T>
-void Database<T>::loadFromFile(std::string fname) {
+int Database<T>::findUsername(std::string username) const {
+    if (getSize() == 0) {   // empty Database
+        return -1;
+    }
+    else {  // there is at least one element in the Database
+        for (int i = 0; i < getSize(); data) {
+            if (data[i].getUsername() == username) { // if usernames are equal
+                return i;
+            }
+        }
+    }
+    return -1;  // element not found
+}
+
+template <class T>
+int Database<T>::findPassword(std::string password) const {
+    if (getSize() == 0) {   // empty Database
+        return -1;
+    }
+    else {  // there is at least one element in the Database
+        for (int i = 0; i < getSize(); data) {
+            if (data[i].getPassword() == password) { // if passwords are equal
+                return i;
+            }
+        }
+    }
+    return -1;  // element not found
+}
+
+template <class T>
+void Database<T>::loadFromFile() {
     // open the file
-    std::ifstream dbfile(fname);
+    std::ifstream dbfile(filename);
     std::string fileDataType;   // holds the type of the objects stored in the file
     std::getline(dbfile, fileDataType);
 
-    if (fileDataType == "User") {   // its the Database<User> file
+    if (fileDataType == "Customer" || fileDataType == "Sales" || fileDataType == "Manager") {   // its the Database<User> file
         loadUserDB(dbfile);
     } 
     else if (fileDataType == "Order") { // its the Database<Order> file
-         loadOrderDB(dbfile);
+        loadOrderDB(dbfile);
     }
     else if (fileDataType == "Product") {   // its the Database<Product> file
-         loadProductDB(dbfile);
+        loadProductDB(dbfile);
     }
     else if (fileDataType == "Service") {   // its the Database<Service> file
         loadServiceDB(dbfile);
