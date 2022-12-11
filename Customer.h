@@ -4,7 +4,6 @@
 #include "User.h"
 #include "Product.h"
 #include "Service.h"
-//#include "Database.h"
 
 class Customer : public User {
 private:
