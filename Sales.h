@@ -4,7 +4,7 @@
 #ifndef SALES_H
 #define SALES_H
 
-#include "Database.h"
+//#include "OrderDB.h"
 #include "User.h"
 #include "Order.h"
 
@@ -19,12 +19,6 @@ public:
     void setSalesID(std::string);
     std::string getSalesID() const;
     std::string toString();
-
-    void placeOrder(Database<Order>, Order);
-    void deleteOrder(Database<Order>, Order); //deleter order by order
-    void deleteOrder(Database<Order>, std::string); //delete order by ordername
-    void modifyOrder(Database<Order>, Order, Order); //existed Order and new Order
-    void viewOrder(Database<Order>); //print database
 };
 
 #endif
