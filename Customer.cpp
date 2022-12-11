@@ -3,7 +3,7 @@
 #include "Database.h"
 
 Customer::Customer() : User() {
-    setCustomerID("0");
+    setCustomerID("c0");
     setCustomerType("Residential");
     ++total_customers;
 }
@@ -97,4 +97,12 @@ std::string Customer::toString() {
     toString += "Customer ID: " + customer_id + "\n";
     toString += customer_type;
     return toString;
+}
+
+void Customer::copy(Customer toCopy) { 
+    this->customer_id = toCopy.getCustomerID();
+    this->customer_type = toCopy.getCustomerType();
+    this->setUsername(toCopy.getUsername());
+    this->setPassword(toCopy.getPassword());
+    this->setAccount(toCopy.getAccount());
 }
