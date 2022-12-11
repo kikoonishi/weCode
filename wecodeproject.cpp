@@ -643,7 +643,7 @@ int main()
     ProductDB products = ProductDB(100, "products.txt");
     ServiceDB services = ServiceDB(100, "services.txt");
 
-    // load Databases from file
+    // populate the Databases
 
     string username;
     string password;
