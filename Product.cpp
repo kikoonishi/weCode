@@ -16,14 +16,18 @@ Product::Product(std::string name, std::string t, double cost)
 	price = cost;
 }
 
-std::string Product::getName()
+std::string Product::getName() const
 {
 	return productName;
 }
 
-double Product::getPrice()
+double Product::getPrice() const
 {
 	return price;
+}
+
+std::string Product::getType() const {
+	return type;
 }
 
 void Product::setName(std::string name)
@@ -36,14 +40,20 @@ void Product::setPrice(double cost)
 	price = cost;
 }
 
+void Product::setType(std::string t)	// fixed; Logan had SetType
+{
+	type = t;
+}
+
 std::string Product::toString()
 {
 	std::string output = productName + "/n" + "$" + std::to_string(price);
 	return output;
 }
 
-Product Product::copy()
+void Product::copy(Product toCopy)
 {
-	Product copy = Product(productName,type, price);
-	return copy;
+	this->productName = toCopy.getName();
+	this->type = toCopy.getType();
+	this->price = toCopy.getPrice();
 }
