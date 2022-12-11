@@ -22,8 +22,7 @@ void Sales::setSalesID(std::string new_sales_id) {
 
 std::string Sales::getSalesID() const { return sales_id; }
 
-template <class T>
-void Sales::placeOrder(Database<T> database, Order order) {
+void Sales::placeOrder(Database<Order> database, Order order) {
     //add order to database (ordername, product/service, quantity)
     database.add(order);
 }
@@ -35,14 +34,12 @@ std::string Sales::toString() {
     return toString;
 }
 
-template <class T>
-void Sales::deleteOrder(Database<T> database, Order order) {
+void Sales::deleteOrder(Database<Order> database, Order order) {
     //delete order from database
     database.remove(order);
 }
 
-template <class T>
-void Sales::modifyOrder(Database<T> database, Order existingOrder, Order newOrder) {
+void Sales::modifyOrder(Database<Order> database, Order existingOrder, Order newOrder) {
     //delete existing order
     database.remove(existingOrder);
     //add new order
@@ -50,8 +47,7 @@ void Sales::modifyOrder(Database<T> database, Order existingOrder, Order newOrde
 
 }
 
-template <class T>
-void Sales::viewOrder(Database<T> database) {
+void Sales::viewOrder(Database<Order> database) {
     //get database as string and print
     database.print();
 }
