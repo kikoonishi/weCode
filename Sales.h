@@ -23,16 +23,11 @@ public:
     std::string getSalesID() const;
     std::string toString();
 
-    template <class T>
-    void placeOrder(Database<T>, Order);
-    template <class T>
-    void deleteOrder(Database<T>, Order); //deleter order by order
-    template <class T>
-    void deleteOrder(Database<T>, std::string); //delete order by ordername
-    template <class T>
-    void modifyOrder(Database<T>, Order, Order); //existed Order and new Order
-    template <class T>
-    void viewOrder(Database<T>); //print database
+    void placeOrder(Database<Order>, Order);
+    void deleteOrder(Database<Order>, Order); //deleter order by order
+    void deleteOrder(Database<Order>, std::string); //delete order by ordername
+    void modifyOrder(Database<Order>, Order, Order); //existed Order and new Order
+    void viewOrder(Database<Order>); //print database
 };
 
 #endif
