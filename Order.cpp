@@ -16,23 +16,26 @@ Order::Order()
 
 Order::Order(Product p, std::string name, Customer c)
 {
-	product = p;
+	setProduct(p);
 	service = Service();
 	orderName = name;
+	setCustomer(c);
 }
 
 Order::Order(Service s, std::string name, Customer c)
 {
 	product = Product();
-	service = s;
+	setService(s);
 	orderName = name;
+	setCustomer(c);
 }
 
 Order::Order(Product p, Service s, std::string name, Customer c)
 {
-	product = p;
-	service = s;
+	setProduct(p);
+	setService(s);
 	orderName = name;
+	setCustomer(c);
 }
 
 Product Order::getProduct() const
@@ -56,12 +59,12 @@ Customer Order::getCustomer() const {
 
 void Order::setProduct(Product p)
 {
-	product = p;
+	product.copy(p);
 }
 
 void Order::setService(Service s)
 {
-	service = s;
+	service.copy(s);
 }
 
 void Order::setOrderName(std::string name)
@@ -71,7 +74,7 @@ void Order::setOrderName(std::string name)
 
 void Order::setCustomer(Customer c)
 {
-	customer = c;
+	customer.copy(c);
 }
 
 std::string Order::toString()
