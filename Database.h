@@ -34,7 +34,7 @@ public:
     void print();
     void addToData(T);  // adds a new element to the list; only for loading from files
     void add(T);    // adds a new element to the list and file
-    void remove(T);
+    bool remove(T);
 
     void loadFromFile(std::string); // load Database from text file
     void loadUserDB(std::ifstream);     // loads Database<User>
