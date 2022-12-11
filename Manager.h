@@ -4,9 +4,7 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include <string>
 #include "User.h"
-#include "Account.h"
 #include "Order.h"
 #include "Product.h"
 #include "Service.h"
