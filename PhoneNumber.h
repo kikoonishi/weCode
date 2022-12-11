@@ -15,4 +15,5 @@ public:
     std::string getPhoneNumber() const;   // accessor method
 
     std::string toString(); // for printing an instance of PhoneNumber
+    void copy(PhoneNumber);
 };
