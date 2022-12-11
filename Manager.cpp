@@ -1,7 +1,6 @@
 //Author weCode
 //Manager.cpp
 
-#include <string>
 #include "Manager.h" // include definition of class Sales from Sales.h
 
 
