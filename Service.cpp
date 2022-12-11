@@ -18,51 +18,58 @@ Service::Service(std::string name, std::string t, double rate, int time)
 	hours = time;
 }
 
-std::string Service:: getName()
+std::string Service::getName() const
 {
 	return serviceName;
 }
 
-double Service:: getRate()
+double Service::getRate() const
 {
 	return hourlyRate;
 }
 
-double Service:: getHours()
+double Service::getHours() const
 {
 	return hours;
 }
 
-double Service:: getPrice()
+double Service::getPrice() const
 {
 	return (hourlyRate * hours);
 }
 
-void Service:: setName(std::string name)
+void Service::setName(std::string name)
 {
 	serviceName = name;
 }
 
-void Service:: setRate(double rate)
+void Service::setRate(double rate)
 {
 	hourlyRate = rate;
 }
 
-void Service:: setHours(int time)
+void Service::setHours(int time)
 {
 	hours = time;
 }
 
-std::string Service:: toString()
+void Service::setType(std::string t)
+{
+	type = t;
+}
+
+std::string Service::toString()
 {
 	std::string output = serviceName + "/n" + "$" + std::to_string(hourlyRate) + " per hour";
 	return output;
-	
+
 
 }
 
-Service Service:: copy()
+void Service::copy(Service toCopy)
 {
-	Service copy = Service(serviceName,type, hourlyRate, hours);
-	return copy;
+	this->serviceName = toCopy.getName();
+	this->type = toCopy.getType();
+	this->hourlyRate = toCopy.getRate();
+	this->hours = toCopy.getHours();
 }
