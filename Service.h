@@ -11,15 +11,17 @@ private:
 
 public:
 	Service();
-	Service(std::string name, std::string type, double rate,int time);
-	std::string getName();
-	double getRate();
-	double getHours();
-	double getPrice();
+	Service(std::string name, std::string type, double rate, int time);
+	std::string getName() const;
+	double getRate() const;
+	double getHours() const;
+	double getPrice() const;
+	std::string getType() const;
 	void setName(std::string name);
 	void setRate(double rate);
 	void setHours(int time);
+	void setType(std::string type);
 	std::string toString();
-	Service copy();
+	void copy(Service);
 
 };
