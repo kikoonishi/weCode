@@ -28,26 +28,30 @@ Order::Order(Service s, std::string name, Customer c)
 	orderName = name;
 }
 
-Order:: Order(Product p, Service s, std::string name, Customer c)
+Order::Order(Product p, Service s, std::string name, Customer c)
 {
 	product = p;
 	service = s;
 	orderName = name;
 }
 
-Product Order::getProduct()
+Product Order::getProduct() const
 {
 	return product;
 }
 
-Service Order::getService()
+Service Order::getService() const
 {
 	return service;
 }
 
-std::string Order::getOrderName()
+std::string Order::getOrderName() const
 {
 	return orderName;
+}
+
+Customer Order::getCustomer() const {
+	return customer;
 }
 
 void Order::setProduct(Product p)
@@ -65,16 +69,22 @@ void Order::setOrderName(std::string name)
 	orderName = name;
 }
 
-std::string Order:: toString()
+void Order::setCustomer(Customer c)
 {
-	std::string output = orderName + "-" + product.getName(); + "-"+ service.getName();
+	customer = c;
+}
+
+std::string Order::toString()
+{
+	std::string output = orderName + "-" + product.getName(); +"-" + service.getName();
 	return output;
 }
 
-Order Order:: copy()
+void Order::copy(Order toCopy)
 {
-	Order copy = Order(product, service, orderName);
-	return copy;
+	this->orderName = toCopy.getOrderName();
+	this->product.copy(toCopy.getProduct());
+	this->service.copy(toCopy.getService());
+	this->customer.copy(toCopy.getCustomer());
 }
-
 
