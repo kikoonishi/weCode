@@ -37,3 +37,7 @@ std::string PhoneNumber::toString() {
     toString += phoneNum.substr(7);     // e.g. 4567
     return toString;    // e.g. 1(630)123-457
 }
+
+void PhoneNumber::copy(PhoneNumber toCopy) {
+    this->phone_number = toCopy.getPhoneNumber();
+}
