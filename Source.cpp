@@ -27,42 +27,42 @@ static void shopMenu(Database productsAndServices)
     cin >> option;
     if (option == 1)
     {
-        for (int i = 0; i < productsAndServices.size; i++)
+        for (int i = 0; i < productsAndServices.getSize(); i++)
         {
             if () // go through list and if the type is a camera, then print the product as a toString
         }
     }
     else if (option == 2)
     {
-        for (int i = 0; i < productsAndServices.size; i++)
+        for (int i = 0; i < i < productsAndServices.getSize(); i++)
         {
             if () // go through list and if the type is a DVR, then print the product as a toString
         }
     }
     else if (option == 3)
     {
-        for (int i = 0; i < productsAndServices.size; i++)
+        for (int i = 0; i < productsAndServices.getSize(); i++)
         {
             if () // go through list and if the type is a Accesorie, then print the product as a toString
         }
     }
     else if (option == 4)
     {
-        for (int i = 0; i < productsAndServices.size; i++)
+        for (int i = 0; i < productsAndServices.getSize(); i++)
         {
             if () // go through list and if the type is a Installation, then print the service as a toString
         }
     }
     else if (option == 5)
     {
-        for (int i = 0; i < productsAndServices.size; i++)
+        for (int i = 0; i < productsAndServices.getSize(); i++)
         {
             if () // go through list and if the type is a Repair, then print the product as a toString
         }
     }
     else if (option == 6)
     {
-        for (int i = 0; i < productsAndServices.size; i++)
+        for (int i = 0; i < productsAndServices.getSize(); i++)
         {
             if () // go through list and if the type is a Other, then print the product or service as a toString
         }
@@ -163,7 +163,7 @@ static void customerMenu(Customer customer, Database productsAndServices)
             
 }
 
-static void salesMenu(Sales sales, Database placedOrders, Database productsAndServices)
+static void salesMenu(Sales sales, Database placedOrders, Database productsAndServices,Database users)
 {
     while (true)
     {
@@ -183,26 +183,48 @@ static void salesMenu(Sales sales, Database placedOrders, Database productsAndSe
         }
         else if (option == 2)
         {
-            cout << " To place order, enter product or service name, an order name, and the customers ID:" << endl;
+            cout << " To place order, enter if you are ordering a product or service, enter product or service name, an order name, and the customers ID:" << endl;
+            string productOrService;
             string productServiceName;
             string orderName;
             int customerID;
-            cin >> productServiceName >> orderName >> customerID;
+            cin >> productOrService>>productServiceName >> orderName >> customerID;
             //find the product in the database using the products name and then get the product
             //find the customer in the database using the customerID and then get the customer
             // use order constructor
             // then place the order
-            Order order;
-            sales.placeOrder(order);
+            Customer customer = productsAndServices.findElement(customerID); // finds the customer based on the id to be used for the order
+
+            if (productOrService == "product")
+            {
+                Product product = productsAndServices.findElement(productOrService);
+                Order order = Order(product, orderName, customer);
+                sales.placeOrder(order);
+            }
+            else if (productOrService == "service")
+            {
+                Service service = productsAndServices.findElement(productOrService);
+                Order order = Order(service, orderName, customer);
+                sales.placeOrder(order);
+            }
+
+           
         }
         else if (option == 3)
         {
 
-            placedOrders.print();
+            placedOrders.toString();
         }
         else if (option == 4)
         {
-            Order order4;// need a way to find the order
+
+
+            cout << "Enter the order name you would like to edit:" << endl;
+            string orderName;
+            cin >> orderName;
+            Order order = placedOrders.findElement(orderName);
+
+           
             cout << "Choose an option of how to edit the order:" << endl;
             cout << "1.Edit product" << endl;
             cout << "2.Edit service" << endl;
@@ -214,19 +236,34 @@ static void salesMenu(Sales sales, Database placedOrders, Database productsAndSe
 
             if (option == 1)
             {
-                order4.setProduct(Product p);
+                cout << "Enter the correct name of the product to be input:" << endl;
+                string productName;
+                cin >> productName;
+                Product p = productsAndServices.findElement(productName);
+
+                order.setProduct(p);
             }
             else if (option == 2)
             {
-                order4.setService(Service s);
+                cout << "Enter the correct name of the service to be input:" << endl;
+                string serviceName;
+                cin >> serviceName;
+                Service s = productsAndServices.findElement(serviceName);
+                order.setService(s);
             }
             else if (option == 3)
             {
-                order4.setCustomer(Customer c);
+                cout << "Enter the correct id of the customer to be input:" << endl;
+                string customerID;
+                cin >> customerID;
+                Customer c = users.findElement(customerID);
+                order.setCustomer(c);
             }
             else if (option == 4)
             {
-                order4.setOrderName(std::string name);
+                cout << "Enter the correct name of the order to be input:" << endl;
+                string properOrderName;
+                order.setOrderName(properOrderName);
             }
             
         }
@@ -272,7 +309,7 @@ static void managerMenu(Manager manager, Database placedOrders,Database products
             // use order constructor
             // then place the order
             Order order;
-            sales.placeOrder(order);
+            manager.placeOrder(order);
         }
         else if (option == 3)
         {
@@ -280,7 +317,12 @@ static void managerMenu(Manager manager, Database placedOrders,Database products
         }
         else if (option == 4)
         {
-            Order order4;// need a way to find the order
+            cout << "Enter the order name you would like to edit:" << endl;
+            string orderName;
+            cin >> orderName;
+            Order order = placedOrders.findElement(orderName);
+
+
             cout << "Choose an option of how to edit the order:" << endl;
             cout << "1.Edit product" << endl;
             cout << "2.Edit service" << endl;
@@ -292,19 +334,34 @@ static void managerMenu(Manager manager, Database placedOrders,Database products
 
             if (option == 1)
             {
-                order4.setProduct(Product p);
+                cout << "Enter the correct name of the product to be input:" << endl;
+                string productName;
+                cin >> productName;
+                Product p = productsAndServices.findElement(productName);
+
+                order.setProduct(p);
             }
             else if (option == 2)
             {
-                order4.setService(Service s);
+                cout << "Enter the correct name of the service to be input:" << endl;
+                string serviceName;
+                cin >> serviceName;
+                Service s = productsAndServices.findElement(serviceName);
+                order.setService(s);
             }
             else if (option == 3)
             {
-                order4.setCustomer(Customer c);
+                cout << "Enter the correct id of the customer to be input:" << endl;
+                string customerID;
+                cin >> customerID;
+                Customer c = users.findElement(customerID);
+                order.setCustomer(c);
             }
             else if (option == 4)
             {
-                order4.setOrderName(std::string name);
+                cout << "Enter the correct name of the order to be input:" << endl;
+                string properOrderName;
+                order.setOrderName(properOrderName);
             }
         }
         else if (option == 5)
@@ -345,7 +402,7 @@ static void managerMenu(Manager manager, Database placedOrders,Database products
                 string find;
                 cin >> find;
                 //find the product with the corresponding name
-                Product p;
+                Product p = productsAndServices.findElement(find);
 
                 cout << "Enter the option of how you would like to edit the product" << endl;
                 cout << "1.Edit Product Name" << endl;
@@ -383,7 +440,7 @@ static void managerMenu(Manager manager, Database placedOrders,Database products
                 string find;
                 cin >> find;
                 //find the product with the corresponding name
-                Service s;
+                Service s = productsAndServices.findElement(find);
 
                 cout << "Enter the option of how you would like to edit the Service" << endl;
                 cout << "1.Edit Service Name" << endl;
@@ -424,18 +481,35 @@ static void managerMenu(Manager manager, Database placedOrders,Database products
         }
         else if (option == 7)
         {
-            Product product;
-            Service service;
-            string productName = product.getName();
-            string serviceName = service.getName();
 
-            //remove
+            cout << "Would you like to remove a product or a service? (Enter product or service):" << endl;
+            string choice;
+            cin >> choice;
+
+            if (choice == "product")
+            {
+                cout << "Enter product name:" << endl;
+                string name;
+                Product p = productsAndServices.findElement(p);
+                manager.deleteProduct(productsAndServices, p);
+            }
+            else if (choice == "service")
+            {
+
+                cout << "Enter service name:" << endl;
+                string name;
+                Service s = productsAndServices.findElement(s);
+                manager.deleteService(productsAndServices, s);
+            }
+
+         
         }
         else if (option == 8)
         {
-            // find the user
-            // mnue to change their info
-            Customer customer;
+        cout << "Enter theid of the customer to be edited:" << endl;
+        string customerID;
+        cin >> customerID;
+        Customer customer = users.findElement(customerID);
 
 
             cout << " Enter proper Street Address:" << endl;
