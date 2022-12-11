@@ -1,23 +1,18 @@
-// source.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// wecodeproject.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
 #include <string>
-#include "Account.h"
-#include "Address.h"
-#include "Customer.h"
-#include "Database.h"
-#include "Manager.h"
-#include "Order.h"
-#include "PhoneNumber.h"
-#include "Product.h"
-#include "Sales.h"
-#include "Service.h"
-#include "User.h"
 
+#include "CustomerDB.h"
+#include "SalesDB.h"
+#include "ManagerDB.h"
+#include "OrderDB.h"
+#include "ProductDB.h"
+#include "ServiceDB.h"
 using namespace std;
 
-void shopMenu(Database<Product> products, Database<Service> services)
+void shopMenu(ProductDB products, ServiceDB services)
 {
     cout << "Welcome to the shop! Select one of the following options to browse products and services" << endl;
     cout << "--------------------------------------------" << endl;
@@ -145,7 +140,7 @@ void changeInfo(Customer customer)
 
 }
 
-void customerMenu(Customer customer, Database<Product> products, Database<Service> services)
+void customerMenu(Customer customer, ProductDB products, ServiceDB services)
 {
     while (true) {
         cout << "Welcome! Select one of the following options" << endl;
@@ -180,8 +175,7 @@ void customerMenu(Customer customer, Database<Product> products, Database<Servic
 
 }
 
-void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product> products, 
-    Database<Service> services, Database<Customer> customers, Database<Sales> sales, Database<Manager> managers)
+void salesMenu(Sales salesperson, OrderDB placedOrders, ProductDB products, ServiceDB services, CustomerDB customers, SalesDB sales, ManagerDB managers)
 {
     while (true)
     {
@@ -212,10 +206,7 @@ void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product
             // use order constructor
             // then place the order
 
-            Customer tempC = Customer();
-            tempC.setCustomerID(customerID);
-
-            int indexC = customers.findElement(tempC);
+            int indexC = customers.findElement(customerID);
             if (indexC < 0) {   // negative index
                 break;
             }
@@ -223,29 +214,23 @@ void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product
 
             if (productOrService == "product")
             {
-                Product tempP = Product();
-                tempP.setName(productServiceName);
-
-                int indexP = products.findElement(tempP);
+                int indexP = products.findElement(productServiceName);
                 if (indexP < 0) {   // negative value
                     break;
                 }
                 Product product = products.get(indexP);
                 Order order = Order(product, orderName, customer);
-                salesperson.placeOrder(placedOrders, order);
+                placedOrders.add(order);    // adds the order to database
             }
             else if (productOrService == "service")
             {
-                Service tempS = Service();
-                tempS.setName(productServiceName);
-
-                int indexS = services.findElement(tempS);
+                int indexS = services.findElement(productServiceName);
                 if (indexS < 0) {   // negative value
                     break;
                 }
                 Service service = services.get(indexS);
                 Order order = Order(service, orderName, customer);
-                salesperson.placeOrder(placedOrders, order);
+                placedOrders.add(order);    // adds the order to database
             }
 
 
@@ -260,12 +245,9 @@ void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product
             string orderName;
             cin >> orderName;
 
-            Order tempO = Order();
-            tempO.setOrderName(orderName);
-
-            int indexO = placedOrders.findElement(tempO);
+            int indexO = placedOrders.findElement(orderName);
             if (indexO < 0) {   // negative index
-                break;  
+                break;
             }
             Order order = placedOrders.get(indexO);
 
@@ -285,10 +267,7 @@ void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product
                 string productName;
                 cin >> productName;
 
-                Product tempP = Product();
-                tempP.setName(productName);
-
-                int indexP = products.findElement(tempP);
+                int indexP = products.findElement(productName);
                 if (indexP < 0) {   // negative index
                     break;
                 }
@@ -301,10 +280,7 @@ void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product
                 string serviceName;
                 cin >> serviceName;
 
-                Service tempS = Service();
-                tempS.setName(serviceName);
-
-                int indexS = services.findElement(tempS);
+                int indexS = services.findElement(serviceName);
                 if (indexS < 0) {   // negative index
                     break;
                 }
@@ -317,10 +293,7 @@ void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product
                 string customerID;
                 cin >> customerID;
 
-                Customer tempC = Customer();
-                tempC.setCustomerID(customerID);
-
-                int indexC = customers.findElement(tempC);
+                int indexC = customers.findElement(customerID);
                 if (indexC < 0) {   // negative value
                     break;
                 }
@@ -342,8 +315,7 @@ void salesMenu(Sales salesperson, Database<Order> placedOrders, Database<Product
     }
 }
 
-void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product> products, 
-    Database<Service> services, Database<Customer> customers, Database<Sales> sales, Database<Manager> managers)
+void managerMenu(Manager manager, OrderDB placedOrders, ProductDB products, ServiceDB services, CustomerDB customers, SalesDB sales, ManagerDB managers)
 {
 
     while (true)
@@ -378,7 +350,7 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
             // use order constructor
             // then place the order
             Order order;
-            manager.placeOrder(placedOrders, order);
+            placedOrders.add(order);    // adds the order to database
         }
         else if (option == 3)
         {
@@ -390,10 +362,7 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
             string orderName;
             cin >> orderName;
 
-            Order tempO = Order();
-            tempO.setOrderName(orderName);
-
-            int indexO = placedOrders.findElement(tempO);
+            int indexO = placedOrders.findElement(orderName);
             if (indexO < 0) {    // negative index; not found
                 break;
             }
@@ -415,10 +384,7 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 string productName;
                 cin >> productName;
 
-                Product tempP = Product();
-                tempP.setName(productName);
-
-                int indexP = products.findElement(tempP);
+                int indexP = products.findElement(productName);
                 if (indexP < 0) {    // negative index; not found
                     break;
                 }
@@ -432,10 +398,7 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 string serviceName;
                 cin >> serviceName;
 
-                Service tempS = Service();
-                tempS.setName(serviceName);
-
-                int indexS = services.findElement(tempS);
+                int indexS = services.findElement(serviceName);
                 if (indexS < 0) {    // negative index; not found
                     break;
                 }
@@ -449,10 +412,7 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 string customerID;
                 cin >> customerID;
 
-                Customer tempC = Customer();
-                tempC.setCustomerID(customerID);
-
-                int indexC = customers.findElement(tempC);
+                int indexC = customers.findElement(customerID);
                 if (indexC < 0) {    // negative index; not found
                     break;
                 }
@@ -481,7 +441,7 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 cin >> pName >> pType >> pPriceString;
                 double pPrice = stod(pPriceString); // string to double function
                 Product product = Product(pName, pType, pPrice);
-                manager.addProduct(products, product);
+                products.add(product);  // adds the product to database
             }
             else if (choice == "service")
             {
@@ -491,7 +451,7 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 cin >> sName >> sType >> sHourlyRateString >> sHours;
                 double sHourlyRate = stod(sHourlyRateString); // string to double function
                 Service service = Service(sName, sType, sHourlyRate, sHours);
-                manager.addService(services, service);
+                services.add(service);  // adds the service to database
             }
         }
         else if (option == 6)
@@ -504,11 +464,9 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 cout << "Enter Product name to be edited" << endl;
                 string find;
                 cin >> find;
-                //find the product with the corresponding name
-                Product tempP = Product();
-                tempP.setName(find);
 
-                int indexP = products.findElement(tempP);
+                //find the product with the corresponding name
+                int indexP = products.findElement(find);
                 if (indexP < 0) {    // negative index; not found
                     break;
                 }
@@ -526,18 +484,21 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 {
                     cout << "Enter proper name:" << endl;
                     string name;
+                    cin >> name;
                     p.setName(name);
                 }
                 else if (option == 2)
                 {
                     cout << "Enter proper type:" << endl;
                     string type;
+                    cin >> type;
                     p.setType(type);
                 }
                 else if (option == 3)
                 {
                     cout << "Enter proper price:" << endl;
-                    int price;
+                    double price;
+                    cin >> price;
                     p.setPrice(price);
                 }
 
@@ -549,12 +510,9 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 cout << "Enter Service name to be edited" << endl;
                 string find;
                 cin >> find;
+
                 //find the product with the corresponding name
-
-                Service tempS = Service();
-                tempS.setName(find);
-
-                int indexS = services.findElement(tempS);
+                int indexS = services.findElement(find);
                 if (indexS < 0) {    // negative index; not found
                     break;
                 }
@@ -573,24 +531,28 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
                 {
                     cout << "Enter proper name:" << endl;
                     string name;
+                    cin >> name;
                     s.setName(name);
                 }
                 else if (option == 2)
                 {
                     cout << "Enter proper type:" << endl;
                     string type;
+                    cin >> type;
                     s.setType(type);
                 }
                 else if (option == 3)
                 {
                     cout << "Enter proper hourly rate:" << endl;
                     double hourlyRate;
+                    cin >> hourlyRate;
                     s.setRate(hourlyRate);
                 }
                 else if (option == 4)
                 {
                     cout << "Enter proper number of hours" << endl;
-                    int hours;
+                    double hours;
+                    cin >> hours;
                     s.setHours(hours);
                 }
             }
@@ -608,31 +570,27 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
             {
                 cout << "Enter product name:" << endl;
                 string name;
+                cin >> name;
 
-                Product tempP = Product();
-                tempP.setName(name);
-
-                int indexP = products.findElement(tempP);
+                int indexP = products.findElement(name);
                 if (indexP < 0) {    // negative index; not found
                     break;
                 }
                 Product p = products.get(indexP);
-                manager.deleteProduct(products, p);
+                products.remove(p); // removes the Product
             }
             else if (choice == "service")
             {
                 cout << "Enter service name:" << endl;
                 string name;
+                cin >> name;
 
-                Service tempS = Service();
-                tempS.setName(name);
-
-                int indexS = services.findElement(tempS);
+                int indexS = services.findElement(name);
                 if (indexS < 0) {    // negative index; not found
                     break;
                 }
                 Service s = services.get(indexS);
-                manager.deleteService(services, s);
+                services.remove(s); // removes the Service
             }
 
 
@@ -643,10 +601,7 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
             string customerID;
             cin >> customerID;
 
-            Customer tempC = Customer();
-            tempC.setCustomerID(customerID);
-
-            int indexC = customers.findElement(tempC);
+            int indexC = customers.findElement(customerID);
             if (indexC < 0) {    // negative index; not found
                 break;
             }
@@ -681,12 +636,12 @@ void managerMenu(Manager manager, Database<Order> placedOrders, Database<Product
 int main()
 {
     // Databases
-    Database<Customer> customers = Database<Customer>(100, "customers.txt");
-    Database<Sales> sales = Database<Sales>(100, "sales.txt");
-    Database<Manager> managers = Database<Manager>(100, "managers.txt");
-    Database<Order> orders = Database<Order>(100, "orders.txt");
-    Database<Product> products = Database<Product>(100, "products.txt");
-    Database<Service> services = Database<Service>(100, "services.txt");
+    CustomerDB customers = CustomerDB(100, "customers.txt");
+    SalesDB sales = SalesDB(100, "sales.txt");
+    ManagerDB managers = ManagerDB(100, "managers.txt");
+    OrderDB orders = OrderDB(100, "orders.txt");
+    ProductDB products = ProductDB(100, "products.txt");
+    ServiceDB services = ServiceDB(100, "services.txt");
 
     // load Databases from file
 
@@ -704,7 +659,7 @@ int main()
     cout << "Enter PASSWORD:" << endl;
     cin >> password;
 
-    int x;  // check who is logged in
+    int x = 0;  // check who is logged in
 
     // check if Customer login was found
     int cUserIndex = customers.findUsername(username);
