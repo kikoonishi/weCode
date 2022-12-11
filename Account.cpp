@@ -6,10 +6,11 @@ Account::Account() {
     ++total_accounts;
 }
 
-Account::Account(std::string newName, Address newAddress1, Address newAddress2) {
+Account::Account(std::string newName, Address newAddress1, Address newAddress2, PhoneNumber newPhone) {
     setName(newName);
     setAddress1(newAddress1);
     setAddress2(newAddress2);
+    setPhoneNumber(newPhone.getPhoneNumber());
     ++total_accounts;
 }
 
@@ -60,4 +61,11 @@ std::string Account::toString() {
     toString += "Address 2: " + getAddress2().toString() + "\n";
     toString += "Phone Number: " + getPhoneNumber().toString();
     return toString;
+}
+
+void Account::copy(Account toCopy) {
+    this->name = toCopy.getName();
+    this->address1.copy(toCopy.getAddress1());
+    this->address2.copy(toCopy.getAddress2());
+    this->phone.copy(toCopy.getPhoneNumber());
 }
