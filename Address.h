@@ -28,6 +28,7 @@ public:
     std::string getState() const;
     std::string getAreaCode() const;
     std::string getCountry() const;
-        
+
     std::string toString(); // for printing an instance of Address
+    void copy(Address);
 };
