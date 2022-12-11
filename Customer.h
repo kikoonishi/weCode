@@ -1,10 +1,7 @@
 // Customer.h
 #pragma once
 
-#include <iostream>
-#include <string>
 #include "User.h"
-#include "Account.h"
 #include "Product.h"
 #include "Service.h"
 #include "Database.h"
@@ -15,7 +12,7 @@ private:
     std::string customer_id;
     std::string customer_type;  // business, government, or residential
 public:
-    Customer(); // default constructor
+    Customer(); // default constructor + User fields
     Customer(std::string, std::string, Account, std::string, std::string);  // Customer fields + User fields
 
     void setCustomerID(std::string);
