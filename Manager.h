@@ -26,36 +26,21 @@ public:
     std::string toString();
 
     //add,delete,edit product/service in database
-    template <class T>
-    void addProduct(Database<T>, Product);
-    template <class T>
-    void addService(Database<T>, Service);
-    template <class T>
-    void deleteProduct(Database<T>, Product);//delete product by Product
-    template <class T>
-    void deleteService(Database<T>, Service);//delete product by Service
-    template <class T>
-    void modifyProduct(Database<T>, Product, Product);//existring Product to new Product
-    template <class T>
-    void modifyService(Database<T>, Service, Service);//existring Service to new Service
-    template <class T>
-    void viewProduct(Database<T>);//view database
-    template <class T>
-    void viewService(Database<T>);
-
+    void addProduct(Database<Product>, Product);
+    void addService(Database<Service>, Service);
+    void deleteProduct(Database<Product>, Product);//delete product by Product
+    void deleteService(Database<Service>, Service);//delete product by Service
+    void modifyProduct(Database<Product>, Product, Product);//existring Product to new Product
+    void modifyService(Database<Service>, Service, Service);//existring Service to new Service
+    void viewProduct(Database<Product>);//view database
+    void viewService(Database<Service>);
 
     //Order
-    template <class T>
-    void placeOrder(Database<T>, Order);
-    template <class T>
-    void deleteOrder(Database<T>, Order); //deleter order by order
-    template <class T>
-    void deleteOrder(Database<T>, std::string); //delete order by ordername
-    template <class T>
-    void modifyOrder(Database<T>, Order, Order); //existed Order and new Order
-    template <class T>
-    void viewOrder(Database<T>); //print database
-
+    void placeOrder(Database<Order>, Order);
+    void deleteOrder(Database<Order>, Order); //deleter order by order
+    void deleteOrder(Database<Order>, std::string); //delete order by ordername
+    void modifyOrder(Database<Order>, Order, Order); //existed Order and new Order
+    void viewOrder(Database<Order>); //print database
 };
 
 #endif
