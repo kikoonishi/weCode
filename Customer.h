@@ -36,4 +36,5 @@ public:
     void viewServices(Database<Service>);  // Customer can see the store's services
 
     std::string toString(); // for printing an instance of Customer
+    void copy(Customer);   
 };
