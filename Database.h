@@ -36,7 +36,10 @@ public:
     void add(T);    // adds a new element to the list and file
     bool remove(T);
 
-    void loadFromFile(std::string); // load Database from text file
+    int findUsername(std::string) const;
+    int findPassword(std::string) const;
+
+    void loadFromFile(); // load Database from text file
     void loadUserDB(std::ifstream);     // loads Database<User>
     void loadOrderDB(std::ifstream);    // loads Database<Order>
     void loadProductDB(std::ifstream);  // loads Database<Product>
