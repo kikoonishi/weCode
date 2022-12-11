@@ -4,11 +4,8 @@
 #ifndef SALES_H
 #define SALES_H
 
-#include <string>
-//include headers
 #include "Database.h"
 #include "User.h"
-#include "Account.h"
 #include "Order.h"
 
 
