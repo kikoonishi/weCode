@@ -7,9 +7,10 @@ User::User() {
     ++total_users;
 }
 
-User::User(std::string newUsername, std::string newPassword) {
+User::User(std::string newUsername, std::string newPassword, Account newAccount) {
     setUsername(newUsername);
     setPassword(newPassword);
+    setAccount(newAccount);
     ++total_users;
 }
 
