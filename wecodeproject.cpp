@@ -36,7 +36,7 @@ void shopMenu(ProductDB products, ServiceDB services)
     }
     else if (option == 2)
     {
-        for (int i = 0; i < i < products.getSize(); i++)
+        for (int i = 0; i < products.getSize(); i++)
         {
             if (products.get(i).getType() == "dvr") { // go through list and if the type is a DVR, then print the product as a toString
                 cout << products.get(i).toString() << endl;
@@ -551,7 +551,7 @@ void managerMenu(Manager manager, OrderDB placedOrders, ProductDB products, Serv
                 else if (option == 4)
                 {
                     cout << "Enter proper number of hours" << endl;
-                    double hours;
+                    int hours;
                     cin >> hours;
                     s.setHours(hours);
                 }
@@ -636,14 +636,31 @@ void managerMenu(Manager manager, OrderDB placedOrders, ProductDB products, Serv
 int main()
 {
     // Databases
-    CustomerDB customers = CustomerDB(100, "customers.txt");
-    SalesDB sales = SalesDB(100, "sales.txt");
-    ManagerDB managers = ManagerDB(100, "managers.txt");
-    OrderDB orders = OrderDB(100, "orders.txt");
-    ProductDB products = ProductDB(100, "products.txt");
-    ServiceDB services = ServiceDB(100, "services.txt");
+    int dbSize = 100;
+    CustomerDB customers = CustomerDB(dbSize, "customers.txt");
+    SalesDB sales = SalesDB(dbSize, "sales.txt");
+    ManagerDB managers = ManagerDB(dbSize, "managers.txt");
+    OrderDB orders = OrderDB(dbSize, "orders.txt");
+    ProductDB products = ProductDB(dbSize, "products.txt");
+    ServiceDB services = ServiceDB(dbSize, "services.txt");
 
     // populate the Databases
+    //for (int i = 0; i < dbSize; i++) { // populate Customer
+    //
+    //}
+
+    // test for a new Customer to add
+    string un = "username";
+    string pw = "password";
+    string name = "Alexander";
+    Address ad1 = Address("1234 Road rd", "Naperville", "IL", "60540", "USA");
+    Address ad2 = Address("4321 Lane ln", "Naperville", "IL", "60540", "USA");
+    PhoneNumber ph = PhoneNumber("1234567890");
+    Account acc = Account(name, ad1, ad2, ph);
+
+    //User user = User(un, pw, acc);
+    Customer newCust = Customer(un, pw, acc, "c1234", "residential");
+    customers.addToData(newCust);
 
     string username;
     string password;
