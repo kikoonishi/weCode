@@ -12,6 +12,117 @@
 #include "ServiceDB.h"
 using namespace std;
 
+// global function prototypes
+void shopMenu(ProductDB, ServiceDB);
+void changeInfo(Customer);
+void customerMenu(Customer, ProductDB, ServiceDB);
+void salesMenu(Sales, OrderDB, ProductDB, ServiceDB, CustomerDB, SalesDB, ManagerDB);
+void managerMenu(Manager, OrderDB, ProductDB, ServiceDB, CustomerDB, SalesDB, ManagerDB);
+
+void loadExampleCustomers(CustomerDB);  // run once to set up file for CustomerDB
+void loadExampleSales(SalesDB);         // run once to set up file for SalesDB
+void loadExampleManagers(ManagerDB);    // run once to set up file for ManagerDB
+void loadExampleOrders(OrderDB);        // run once to set up file for OrderDB
+void loadExampleProducts(ProductDB);    // run once to set up file for ProductDB
+void loadExampleServices(ServiceDB);    // run once to set up file for ServiceDB
+
+
+int main()
+{
+    // Databases
+    CustomerDB customers = CustomerDB(0, "customers.txt");
+    SalesDB sales = SalesDB(0, "sales.txt");
+    ManagerDB managers = ManagerDB(0, "managers.txt");
+    OrderDB orders = OrderDB(0, "orders.txt");
+    ProductDB products = ProductDB(0, "products.txt");
+    ServiceDB services = ServiceDB(0, "services.txt");
+
+    // populate the Databases by reading from the text files
+    customers.loadFromFile();
+    sales.loadFromFile();
+    managers.loadFromFile();
+    orders.loadFromFile();
+    products.loadFromFile();
+    services.loadFromFile();
+
+    // have a temporary object for each login case
+    Customer customer = Customer();
+    Sales salesperson = Sales();
+    Manager manager = Manager();
+
+    string username, password;
+
+    cout << "LOGIN" << endl;
+    cout << "Enter USERNAME:" << endl;
+    cin >> username;
+    cout << "Enter PASSWORD:" << endl;
+    cin >> password;
+
+    int x = 0;  // check who is logged in
+
+    // check if Customer login was found
+    int cUserIndex = customers.findUsername(username);
+    int cPassIndex = customers.findPassword(password);
+
+    // check if Sales login was found
+    int sUserIndex = sales.findUsername(username);
+    int sPassIndex = sales.findPassword(password);
+
+    // check if Manager login was found
+    int mUserIndex = managers.findUsername(username);
+    int mPassIndex = managers.findPassword(password);
+
+    // search across databases for a matching login
+    if (cUserIndex == cPassIndex && cUserIndex >= 0) {
+        customer = customers.get(cUserIndex);
+        cout << "Logging in as: Customer" << endl;
+        x = 1;
+    }
+    else if (sUserIndex == sPassIndex && sUserIndex >= 0) {
+        salesperson = sales.get(sUserIndex);
+        cout << "Logging in as: Sales" << endl;
+        x = 2;
+    }
+    else if (mUserIndex == mPassIndex && mUserIndex >= 0) {
+        manager = managers.get(mUserIndex);
+        cout << "Logging in as: Manager" << endl;
+        x = 3;
+    }
+
+    if (x == 1)// CUSTOMER
+    {
+        customerMenu(customer, products, services); // invoke the menu for Customers
+    }
+    else if (x == 2)// SALES
+    {
+        salesMenu(salesperson, orders, products, services, customers, sales, managers); // invoke the menu for Sales
+    }
+    else if (x == 3)// MANAGER
+    {
+        managerMenu(manager, orders, products, services, customers, sales, managers);   // invoke the menu for Managers
+    }
+    else {
+        string choice;
+        cout << "Unable to login. Which login do you want to create? (customer, sales, manager): " << endl;
+        cin >> choice;
+
+        if (choice == "customer") {
+            customerMenu(customer, products, services);
+        }
+        else if (choice == "sales") {
+            salesMenu(salesperson, orders, products, services, customers, sales, managers);
+        }
+        else if (choice == "manager") {
+            managerMenu(manager, orders, products, services, customers, sales, managers);
+        }
+        else {
+            cout << "Invalid choice. Leaving the system.\n" << endl;
+        }
+
+    }
+
+}
+
 void shopMenu(ProductDB products, ServiceDB services)
 {
     cout << "Welcome to the shop! Select one of the following options to browse products and services" << endl;
@@ -576,8 +687,11 @@ void managerMenu(Manager manager, OrderDB placedOrders, ProductDB products, Serv
                 if (indexP < 0) {    // negative index; not found
                     break;
                 }
-                Product p = products.get(indexP);
-                products.remove(p); // removes the Product
+                if (products.remove(indexP)) { // removes the Product
+                }
+                else {
+                    throw std::invalid_argument("invalid removal of data at index: " + indexP);
+                }
             }
             else if (choice == "service")
             {
@@ -589,8 +703,11 @@ void managerMenu(Manager manager, OrderDB placedOrders, ProductDB products, Serv
                 if (indexS < 0) {    // negative index; not found
                     break;
                 }
-                Service s = services.get(indexS);
-                services.remove(s); // removes the Service
+                if (services.remove(indexS)) { // removes the Service
+                }
+                else {
+                    throw std::invalid_argument("invalid removal of data at index: " + indexS);
+                }
             }
 
 
@@ -631,115 +748,160 @@ void managerMenu(Manager manager, OrderDB placedOrders, ProductDB products, Serv
     }
 }
 
-
-
-int main()
-{
-    // Databases
-    int dbSize = 100;
-    CustomerDB customers = CustomerDB(dbSize, "customers.txt");
-    SalesDB sales = SalesDB(dbSize, "sales.txt");
-    ManagerDB managers = ManagerDB(dbSize, "managers.txt");
-    OrderDB orders = OrderDB(dbSize, "orders.txt");
-    ProductDB products = ProductDB(dbSize, "products.txt");
-    ServiceDB services = ServiceDB(dbSize, "services.txt");
-
-    // populate the Databases
-    //for (int i = 0; i < dbSize; i++) { // populate Customer
-    //
-    //}
-
-    // test for a new Customer to add
-    string un = "username";
-    string pw = "password";
-    string name = "Alexander";
-    Address ad1 = Address("1234 Road rd", "Naperville", "IL", "60540", "USA");
-    Address ad2 = Address("4321 Lane ln", "Naperville", "IL", "60540", "USA");
-    PhoneNumber ph = PhoneNumber("1234567890");
-    Account acc = Account(name, ad1, ad2, ph);
-
-    //User user = User(un, pw, acc);
-    Customer newCust = Customer(un, pw, acc, "c1234", "residential");
-    customers.addToData(newCust);
-
-    string username;
-    string password;
-
-    // this may be where the syntax error: identifier is coming from
-    Customer customer = Customer();
-    Sales salesperson = Sales();
-    Manager manager = Manager();
-
-    cout << "LOGIN" << endl;
-    cout << "Enter USERNAME:" << endl;
-    cin >> username;
-    cout << "Enter PASSWORD:" << endl;
-    cin >> password;
-
-    int x = 0;  // check who is logged in
-
-    // check if Customer login was found
-    int cUserIndex = customers.findUsername(username);
-    int cPassIndex = customers.findPassword(password);
-
-    if (cUserIndex == cPassIndex && cUserIndex >= 0) {
-        customer = customers.get(cUserIndex);
-        x = 1;
+void loadExampleCustomers(CustomerDB customers) {
+    // add to Customer Database and the text file
+    for (int i = 0; i < 100; i++) {
+        string un = "username" + to_string(i);
+        string pw = "password" + to_string(i);
+        string name = "Alexander" + to_string(i);
+        Address ad1 = Address(to_string(i) + "1234 Road rd", "Naperville", "IL", "60540", "USA");
+        Address ad2 = Address(to_string(i) + "4321 Lane ln", "Naperville", "IL", "60540", "USA");
+        PhoneNumber ph = PhoneNumber("1234567890");
+        Account acc = Account(name, ad1, ad2, ph);
+        Customer newCust = Customer(un, pw, acc, "c" + to_string(i), "residential");
+        customers.add(newCust);
     }
+}
 
-    // check if Sales login was found
-    int sUserIndex = sales.findUsername(username);
-    int sPassIndex = sales.findPassword(password);
-
-    if (sUserIndex == sPassIndex && sUserIndex >= 0) {
-        salesperson = sales.get(sUserIndex);
-        x = 2;
+void loadExampleSales(SalesDB sales) {
+    // add to Sales Database and the text file; uncomment and run once if you do not have the text file
+    for (int i = 0; i < 100; i++) {
+        string un = "susername" + to_string(i);
+        string pw = "spassword" + to_string(i);
+        string name = "Kiko" + to_string(i);
+        Address ad1 = Address(to_string(i) + "1234 Road rd", "Naperville", "IL", "60540", "USA");
+        Address ad2 = Address(to_string(i) + "4321 Lane ln", "Naperville", "IL", "60540", "USA");
+        PhoneNumber ph = PhoneNumber("1234567890");
+        Account acc = Account(name, ad1, ad2, ph);
+        Sales newSales = Sales(un, pw, acc, "s" + to_string(i));
+        sales.add(newSales);
     }
+}
 
-    // check if Manager login was found
-    int mUserIndex = managers.findUsername(username);
-    int mPassIndex = managers.findPassword(password);
-
-    if (mUserIndex == mPassIndex && mUserIndex >= 0) {
-        manager = managers.get(mUserIndex);
-        x = 3;
+void loadExampleManagers(ManagerDB managers) {
+    // add to Manager Database and the text file; uncomment and run once if you do not have the text file
+    for (int i = 0; i < 100; i++) {
+        string un = "musername" + to_string(i);
+        string pw = "mpassword" + to_string(i);
+        string name = "Logan" + to_string(i);
+        Address ad1 = Address(to_string(i) + "1234 Road rd", "Naperville", "IL", "60540", "USA");
+        Address ad2 = Address(to_string(i) + "4321 Lane ln", "Naperville", "IL", "60540", "USA");
+        PhoneNumber ph = PhoneNumber("1234567890");
+        Account acc = Account(name, ad1, ad2, ph);
+        Manager newManager = Manager(un, pw, acc, "m" + to_string(i));
+        managers.add(newManager);
     }
+}
 
-    // search database to find user based on its username and password
-    // if username not found, user does not exist
-    // if username is found but password is wrong, reattempt password
+void loadExampleOrders(OrderDB orders) {
+    // add to Order Database and the text file; uncomment and run once if you do not have the text file
+    for (int i = 0; i < 100; i++) {
+        std::string orderName = "order" + to_string(i);
 
+        // for Product in Order
+        std::string pName = "product" + to_string(i);
+        std::string pType;
+        double pPrice;
 
-    if (x == 1)// CUSTOMER
-    {
-        customerMenu(customer, products, services);
-    }
-    else if (x == 2)// SALES
-    {
-        salesMenu(salesperson, orders, products, services, customers, sales, managers);
-    }
-    else if (x == 3)// MANAGER
-    {
-        managerMenu(manager, orders, products, services, customers, sales, managers);
-    }
-    else {
-        string choice;
-        cout << "Unable to login. Which login do you want to create? (customer, sales, manager): " << endl;
-        cin >> choice;
-
-        if (choice == "customer") {
-            customerMenu(customer, products, services);
+        if (i % 3 == 1) {   // make the product a dvr
+            pType = "dvr";
+            pPrice = 149.99;
         }
-        else if (choice == "sales") {
-            salesMenu(salesperson, orders, products, services, customers, sales, managers);
+        else if (i % 3 == 2) {  // make the product a camera
+            pType = "camera";
+            pPrice = 249.79;
         }
-        else if (choice == "manager") {
-            managerMenu(manager, orders, products, services, customers, sales, managers);
+        else {  // make the product an accessory 
+            pType = "accessory";
+            pPrice = 39.99;
         }
-        else {
-            cout << "Invalid choice. Leaving the system.\n" << endl;
-        }
-        
-    }
+        Product p = Product(pName, pType, pPrice);
 
+        // for Service in Order
+        std::string sName = "service" + to_string(i);
+        std::string sType;
+        double sRate;
+        double sHours;
+        if (i % 3 == 1) {   // make the product a dvr
+            sType = "security";
+            sRate = 119.99;
+            sHours = 4;
+        }
+        else if (i % 3 == 2) {  // make the product a camera
+            sType = "surveillance";
+            sRate = 79.99;
+            sHours = 2;
+        }
+        else {  // make the product an accessory 
+            sType = "theater";
+            sRate = 59.99;
+            sHours = 3;
+        }
+        Service s = Service(sName, sType, sRate, sHours);
+
+        // for Customer in Order
+        string un = "username" + to_string(i);
+        string pw = "password" + to_string(i);
+        string name = "Alexander" + to_string(i);
+        Address ad1 = Address(to_string(i) + "1234 Road rd", "Naperville", "IL", "60540", "USA");
+        Address ad2 = Address(to_string(i) + "4321 Lane ln", "Naperville", "IL", "60540", "USA");
+        PhoneNumber ph = PhoneNumber("1234567890");
+        Account acc = Account(name, ad1, ad2, ph);
+        Customer c = Customer(un, pw, acc, "c" + to_string(i), "residential");
+
+        // add the Order
+        Order newOrder = Order(p, s, orderName, c);
+        orders.add(newOrder);
+    }
+}
+
+void loadExampleProducts(ProductDB products) {
+    // add to Product Database and the text file; uncomment and run once if you do not have the text file
+    for (int i = 0; i < 100; i++) {
+        string name = "product" + to_string(i);
+        string type;
+        double price;
+        if (i % 3 == 1) {   // make the product a dvr
+            type = "dvr";
+            price = 149.99;
+        }
+        else if (i % 3 == 2) {  // make the product a camera
+            type = "camera";
+            price = 249.79;
+        }
+        else {  // make the product an accessory 
+            type = "accessory";
+            price = 39.99;
+        }
+        Product newProduct = Product(name, type, price);
+        products.add(newProduct);
+    }
+}
+
+void loadExampleServices(ServiceDB services) {
+    // add to Service Database and the text file; uncomment and run once if you do not have the text file
+    for (int i = 0; i < 100; i++) {
+        string name = "service" + to_string(i);
+        string type;
+        double rate;
+        int hours;
+
+        if (i % 3 == 1) {   // make the product a dvr
+            type = "security";
+            rate = 119.99;
+            hours = 4;
+        }
+        else if (i % 3 == 2) {  // make the product a camera
+            type = "surveillance";
+            rate = 79.99;
+            hours = 2;
+        }
+        else {  // make the product an accessory 
+            type = "theater";
+            rate = 59.99;
+            hours = 3;
+        }
+        Service newService = Service(name, type, rate, hours);
+        services.add(newService);
+    }
 }
