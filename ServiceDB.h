@@ -4,36 +4,28 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
-#include "User.h"
-#include "Order.h"
-#include "Product.h"
 #include "Service.h"
-#include "Customer.h"
-#include "Sales.h"
-#include "Manager.h"
 
 class ServiceDB {
 private:
-    Service* data;
+    std::vector<Service> data = std::vector<Service>(10);
     int maxlength;
-    int size;
     std::string filename;
-    void resize();
-    bool needtoresize();
 
 public:
     ServiceDB(int = 25, std::string = "services.txt");
-    ~ServiceDB();
     int getSize() const;
     int findElement(std::string) const;
     Service get(int) const;
     bool isEqual(Service, Service);
 
     void print();
+    void writeToFile(int);  // 0 = std::out mode, anything else = std::app mode
     void addToData(Service);  // adds a new element to the list; only for loading from files
     void add(Service);    // adds a new element to the list and file
-    bool remove(Service);
+    bool remove(int);
 
     void loadFromFile(); // load Database from text file
     std::string toString();

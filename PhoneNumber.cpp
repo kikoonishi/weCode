@@ -30,11 +30,7 @@ std::string PhoneNumber::getPhoneNumber() const {
 
 std::string PhoneNumber::toString() {
     std::string toString = "";
-    std::string phoneNum = getPhoneNumber();
-    toString += phoneNum.at(0) + "(";       // e.g. 1(
-    toString += phoneNum.substr(1, 4) + ")";    // e.g. 630)
-    toString += phoneNum.substr(4, 7) + "-";    // e.g. 123- 
-    toString += phoneNum.substr(7);     // e.g. 4567
+    toString += getPhoneNumber();
     return toString;    // e.g. 1(630)123-457
 }
 

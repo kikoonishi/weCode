@@ -31,6 +31,10 @@ double Service::getHours() const
 	return hours;
 }
 
+std::string Service::getType() const {
+	return type;
+}
+
 double Service::getPrice() const
 {
 	return (hourlyRate * hours);

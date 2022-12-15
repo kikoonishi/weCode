@@ -1,4 +1,4 @@
-/// User.h
+// User.h
 #pragma once
 
 #include <iostream>

@@ -84,4 +84,3 @@ void Order::copy(Order toCopy)
 	this->service.copy(toCopy.getService());
 	this->customer.copy(toCopy.getCustomer());
 }
-

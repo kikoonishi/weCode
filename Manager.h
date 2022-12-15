@@ -9,7 +9,6 @@
 #include "Product.h"
 #include "Service.h"
 
-//template <class T>
 class Manager :public User {
 private:
     std::string manager_id;

@@ -4,36 +4,28 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
-#include "User.h"
-#include "Order.h"
 #include "Product.h"
-#include "Service.h"
-#include "Customer.h"
-#include "Sales.h"
-#include "Manager.h"
 
 class ProductDB {
 private:
-    Product* data;
+    std::vector<Product> data = std::vector<Product>(10);
     int maxlength;
-    int size;
     std::string filename;
-    void resize();
-    bool needtoresize();
 
 public:
     ProductDB(int = 25, std::string = "products.txt");
-    ~ProductDB();
     int getSize() const;
     int findElement(std::string) const;
     Product get(int) const;
     bool isEqual(Product, Product);
 
     void print();
+    void writeToFile(int);  // 0 = std::out mode, anything else = std::app mode
     void addToData(Product);  // adds a new element to the list; only for loading from files
     void add(Product);    // adds a new element to the list and file
-    bool remove(Product);
+    bool remove(int);
 
     void loadFromFile(); // load Database from text file
     std::string toString();

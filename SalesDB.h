@@ -4,36 +4,29 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
 #include "User.h"
-#include "Order.h"
-#include "Product.h"
-#include "Service.h"
-#include "Customer.h"
 #include "Sales.h"
-#include "Manager.h"
 
 class SalesDB {
 private:
-    Sales* data;
+    std::vector<Sales> data = std::vector<Sales>(10);
     int maxlength;
-    int size;
     std::string filename;
-    void resize();
-    bool needtoresize();
 
 public:
     SalesDB(int = 25, std::string = "sales.txt");
-    ~SalesDB();
     int getSize() const;
     int findElement(std::string) const;
     Sales get(int) const;
     bool isEqual(Sales, Sales);
 
     void print();
+    void writeToFile(int);  // 0 = std::out mode, anything else = std::app mode
     void addToData(Sales);  // adds a new element to the list; only for loading from files
     void add(Sales);    // adds a new element to the list and file
-    bool remove(Sales);
+    bool remove(int);
 
     int findUsername(std::string) const;
     int findPassword(std::string) const;
